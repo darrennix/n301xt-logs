@@ -183,11 +183,13 @@ cython_debug/
 #  refer to https://docs.cursor.com/context/ignore-files
 .cursorignore
 .cursorindexingignore
-/ocr/extracted
-/ocr/pages
-/ocr/searchable
-/ocr/text
-/original-pdf
-/rotated-pdf
-/secrets/
+/src/ocr/extracted
+/src/ocr/pages
+/src/ocr/searchable
+/src/ocr/text
+/src/original-pdf
+/src/rotated-pdf
+/src/secrets/
 .DS_Store
+/src/viewer/pages
+/src/viewer/text
