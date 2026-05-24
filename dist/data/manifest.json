@@ -14,7 +14,8 @@
           "pageCount": 472,
           "entityPageStart": 1,
           "pagePdfTemplate": "pages/d-chic-jan-2013-to-feb-2014/{pagePadded}.pdf",
-          "textTemplate": "text/d-chic-jan-2013-to-feb-2014/{pagePadded}.json"
+          "textTemplate": "text/d-chic-jan-2013-to-feb-2014/{pagePadded}.json",
+          "textScriptTemplate": "text/d-chic-jan-2013-to-feb-2014/{pagePadded}.js"
         },
         {
           "id": "d-chic-mar-2014-to-aug-2014",
@@ -23,7 +24,8 @@
           "pageCount": 496,
           "entityPageStart": 473,
           "pagePdfTemplate": "pages/d-chic-mar-2014-to-aug-2014/{pagePadded}.pdf",
-          "textTemplate": "text/d-chic-mar-2014-to-aug-2014/{pagePadded}.json"
+          "textTemplate": "text/d-chic-mar-2014-to-aug-2014/{pagePadded}.json",
+          "textScriptTemplate": "text/d-chic-mar-2014-to-aug-2014/{pagePadded}.js"
         },
         {
           "id": "d-chic-aug-2014-to-feb-2015",
@@ -32,7 +34,8 @@
           "pageCount": 1160,
           "entityPageStart": 969,
           "pagePdfTemplate": "pages/d-chic-aug-2014-to-feb-2015/{pagePadded}.pdf",
-          "textTemplate": "text/d-chic-aug-2014-to-feb-2015/{pagePadded}.json"
+          "textTemplate": "text/d-chic-aug-2014-to-feb-2015/{pagePadded}.json",
+          "textScriptTemplate": "text/d-chic-aug-2014-to-feb-2015/{pagePadded}.js"
         },
         {
           "id": "d-chic-mar-2015-to-oct-2015",
@@ -41,7 +44,8 @@
           "pageCount": 858,
           "entityPageStart": 2129,
           "pagePdfTemplate": "pages/d-chic-mar-2015-to-oct-2015/{pagePadded}.pdf",
-          "textTemplate": "text/d-chic-mar-2015-to-oct-2015/{pagePadded}.json"
+          "textTemplate": "text/d-chic-mar-2015-to-oct-2015/{pagePadded}.json",
+          "textScriptTemplate": "text/d-chic-mar-2015-to-oct-2015/{pagePadded}.js"
         },
         {
           "id": "d-chic-nov-2015-to-may-2016",
@@ -50,7 +54,8 @@
           "pageCount": 910,
           "entityPageStart": 2987,
           "pagePdfTemplate": "pages/d-chic-nov-2015-to-may-2016/{pagePadded}.pdf",
-          "textTemplate": "text/d-chic-nov-2015-to-may-2016/{pagePadded}.json"
+          "textTemplate": "text/d-chic-nov-2015-to-may-2016/{pagePadded}.json",
+          "textScriptTemplate": "text/d-chic-nov-2015-to-may-2016/{pagePadded}.js"
         },
         {
           "id": "d-chic-june-2016-to-sept-2016",
@@ -59,7 +64,8 @@
           "pageCount": 510,
           "entityPageStart": 3897,
           "pagePdfTemplate": "pages/d-chic-june-2016-to-sept-2016/{pagePadded}.pdf",
-          "textTemplate": "text/d-chic-june-2016-to-sept-2016/{pagePadded}.json"
+          "textTemplate": "text/d-chic-june-2016-to-sept-2016/{pagePadded}.json",
+          "textScriptTemplate": "text/d-chic-june-2016-to-sept-2016/{pagePadded}.js"
         },
         {
           "id": "d-chic-oct-2016-to-mar-2017",
@@ -68,7 +74,8 @@
           "pageCount": 906,
           "entityPageStart": 4407,
           "pagePdfTemplate": "pages/d-chic-oct-2016-to-mar-2017/{pagePadded}.pdf",
-          "textTemplate": "text/d-chic-oct-2016-to-mar-2017/{pagePadded}.json"
+          "textTemplate": "text/d-chic-oct-2016-to-mar-2017/{pagePadded}.json",
+          "textScriptTemplate": "text/d-chic-oct-2016-to-mar-2017/{pagePadded}.js"
         },
         {
           "id": "d-chic-may-2017",
@@ -77,7 +84,8 @@
           "pageCount": 275,
           "entityPageStart": 5313,
           "pagePdfTemplate": "pages/d-chic-may-2017/{pagePadded}.pdf",
-          "textTemplate": "text/d-chic-may-2017/{pagePadded}.json"
+          "textTemplate": "text/d-chic-may-2017/{pagePadded}.json",
+          "textScriptTemplate": "text/d-chic-may-2017/{pagePadded}.js"
         },
         {
           "id": "d-chic-l-akte-1-11",
@@ -86,7 +94,8 @@
           "pageCount": 263,
           "entityPageStart": 5588,
           "pagePdfTemplate": "pages/d-chic-l-akte-1-11/{pagePadded}.pdf",
-          "textTemplate": "text/d-chic-l-akte-1-11/{pagePadded}.json"
+          "textTemplate": "text/d-chic-l-akte-1-11/{pagePadded}.json",
+          "textScriptTemplate": "text/d-chic-l-akte-1-11/{pagePadded}.js"
         },
         {
           "id": "d-chic-october-2018-july-2019",
@@ -95,7 +104,8 @@
           "pageCount": 569,
           "entityPageStart": 5851,
           "pagePdfTemplate": "pages/d-chic-october-2018-july-2019/{pagePadded}.pdf",
-          "textTemplate": "text/d-chic-october-2018-july-2019/{pagePadded}.json"
+          "textTemplate": "text/d-chic-october-2018-july-2019/{pagePadded}.json",
+          "textScriptTemplate": "text/d-chic-october-2018-july-2019/{pagePadded}.js"
         },
         {
           "id": "d-chic-july-2019-to-dec-2019",
@@ -104,7 +114,8 @@
           "pageCount": 620,
           "entityPageStart": 6420,
           "pagePdfTemplate": "pages/d-chic-july-2019-to-dec-2019/{pagePadded}.pdf",
-          "textTemplate": "text/d-chic-july-2019-to-dec-2019/{pagePadded}.json"
+          "textTemplate": "text/d-chic-july-2019-to-dec-2019/{pagePadded}.json",
+          "textScriptTemplate": "text/d-chic-july-2019-to-dec-2019/{pagePadded}.js"
         },
         {
           "id": "d-chic-oct-2021-to-july-2022",
@@ -113,7 +124,8 @@
           "pageCount": 399,
           "entityPageStart": 7040,
           "pagePdfTemplate": "pages/d-chic-oct-2021-to-july-2022/{pagePadded}.pdf",
-          "textTemplate": "text/d-chic-oct-2021-to-july-2022/{pagePadded}.json"
+          "textTemplate": "text/d-chic-oct-2021-to-july-2022/{pagePadded}.json",
+          "textScriptTemplate": "text/d-chic-oct-2021-to-july-2022/{pagePadded}.js"
         },
         {
           "id": "d-chic-oct-2022-mar-2022",
@@ -122,7 +134,8 @@
           "pageCount": 318,
           "entityPageStart": 7439,
           "pagePdfTemplate": "pages/d-chic-oct-2022-mar-2022/{pagePadded}.pdf",
-          "textTemplate": "text/d-chic-oct-2022-mar-2022/{pagePadded}.json"
+          "textTemplate": "text/d-chic-oct-2022-mar-2022/{pagePadded}.json",
+          "textScriptTemplate": "text/d-chic-oct-2022-mar-2022/{pagePadded}.js"
         },
         {
           "id": "d-chic-oct-2022-to-mar-2023",
@@ -131,7 +144,8 @@
           "pageCount": 441,
           "entityPageStart": 7757,
           "pagePdfTemplate": "pages/d-chic-oct-2022-to-mar-2023/{pagePadded}.pdf",
-          "textTemplate": "text/d-chic-oct-2022-to-mar-2023/{pagePadded}.json"
+          "textTemplate": "text/d-chic-oct-2022-to-mar-2023/{pagePadded}.json",
+          "textScriptTemplate": "text/d-chic-oct-2022-to-mar-2023/{pagePadded}.js"
         },
         {
           "id": "d-chic-apr-2023-nov-2023",
@@ -140,7 +154,8 @@
           "pageCount": 471,
           "entityPageStart": 8198,
           "pagePdfTemplate": "pages/d-chic-apr-2023-nov-2023/{pagePadded}.pdf",
-          "textTemplate": "text/d-chic-apr-2023-nov-2023/{pagePadded}.json"
+          "textTemplate": "text/d-chic-apr-2023-nov-2023/{pagePadded}.json",
+          "textScriptTemplate": "text/d-chic-apr-2023-nov-2023/{pagePadded}.js"
         },
         {
           "id": "d-chic-november-2023",
@@ -149,7 +164,8 @@
           "pageCount": 501,
           "entityPageStart": 8669,
           "pagePdfTemplate": "pages/d-chic-november-2023/{pagePadded}.pdf",
-          "textTemplate": "text/d-chic-november-2023/{pagePadded}.json"
+          "textTemplate": "text/d-chic-november-2023/{pagePadded}.json",
+          "textScriptTemplate": "text/d-chic-november-2023/{pagePadded}.js"
         },
         {
           "id": "n301xt-scans",
@@ -158,7 +174,8 @@
           "pageCount": 18,
           "entityPageStart": 9170,
           "pagePdfTemplate": "pages/n301xt-scans/{pagePadded}.pdf",
-          "textTemplate": "text/n301xt-scans/{pagePadded}.json"
+          "textTemplate": "text/n301xt-scans/{pagePadded}.json",
+          "textScriptTemplate": "text/n301xt-scans/{pagePadded}.js"
         }
       ]
     },
@@ -174,7 +191,8 @@
           "pageCount": 24,
           "entityPageStart": 1,
           "pagePdfTemplate": "pages/engine-log-dg0188/{pagePadded}.pdf",
-          "textTemplate": "text/engine-log-dg0188/{pagePadded}.json"
+          "textTemplate": "text/engine-log-dg0188/{pagePadded}.json",
+          "textScriptTemplate": "text/engine-log-dg0188/{pagePadded}.js"
         },
         {
           "id": "engine-log-dg0188-2",
@@ -183,7 +201,8 @@
           "pageCount": 11,
           "entityPageStart": 25,
           "pagePdfTemplate": "pages/engine-log-dg0188-2/{pagePadded}.pdf",
-          "textTemplate": "text/engine-log-dg0188-2/{pagePadded}.json"
+          "textTemplate": "text/engine-log-dg0188-2/{pagePadded}.json",
+          "textScriptTemplate": "text/engine-log-dg0188-2/{pagePadded}.js"
         }
       ]
     },
@@ -199,12 +218,14 @@
           "pageCount": 280,
           "entityPageStart": 1,
           "pagePdfTemplate": "pages/engine-log-pce-dg0189/{pagePadded}.pdf",
-          "textTemplate": "text/engine-log-pce-dg0189/{pagePadded}.json"
+          "textTemplate": "text/engine-log-pce-dg0189/{pagePadded}.json",
+          "textScriptTemplate": "text/engine-log-pce-dg0189/{pagePadded}.js"
         }
       ]
     }
   ],
   "pagePdfTemplate": "pages/{sourceId}/{pagePadded}.pdf",
   "textTemplate": "text/{sourceId}/{pagePadded}.json",
+  "textScriptTemplate": "text/{sourceId}/{pagePadded}.js",
   "pageCount": 9502
 }

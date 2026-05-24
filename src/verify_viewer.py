@@ -6,7 +6,7 @@ rendering the generated single-page PDF and the corresponding source PDF page
 and comparing their image hashes.
 
 Usage:
-    .venv/bin/python verify_viewer.py
+    .venv/bin/python src/verify_viewer.py
 """
 
 from __future__ import annotations
@@ -21,10 +21,11 @@ import fitz
 
 
 ROOT = Path(__file__).resolve().parent
+PROJECT_ROOT = ROOT.parent
 OCR_DIR = ROOT / "ocr"
 SEARCHABLE_DIR = OCR_DIR / "searchable"
 TEXT_DIR = OCR_DIR / "text"
-VIEWER_DIR = ROOT / "viewer"
+VIEWER_DIR = PROJECT_ROOT / "dist"
 MANIFEST_PATH = VIEWER_DIR / "data" / "manifest.json"
 
 
@@ -103,6 +104,9 @@ def verify_page_json(
     generated_json = resolve_template(source, "textTemplate", page)
     if not generated_json.exists():
         raise VerifyError(f"missing generated text JSON: {generated_json}")
+    generated_js = resolve_template(source, "textScriptTemplate", page)
+    if not generated_js.exists():
+        raise VerifyError(f"missing generated text JS: {generated_js}")
 
     payload = load_json(generated_json)
     expected_pairs = {

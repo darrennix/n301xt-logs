@@ -10,7 +10,6 @@ __pycache__/
 .Python
 build/
 develop-eggs/
-dist/
 downloads/
 eggs/
 .eggs/
@@ -117,9 +116,9 @@ ipython_config.py
 .pdm-python
 .pdm-build/
 
-# Generated static viewer payloads. Rebuild with build_viewer.py.
-viewer/pages/
-viewer/text/
+# Generated static viewer payloads. Rebuild with src/build_viewer.py.
+/dist/pages/
+/dist/text/
 
 # PEP 582; used by e.g. github.com/David-OConnor/pyflow and github.com/pdm-project/pdm
 __pypackages__/
@@ -191,5 +190,3 @@ cython_debug/
 /src/rotated-pdf
 /src/secrets/
 .DS_Store
-/src/viewer/pages
-/src/viewer/text

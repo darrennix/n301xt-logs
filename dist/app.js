@@ -8,8 +8,12 @@ const state = {
 };
 
 const SPLIT_STORAGE_KEY = "n301xt.viewer.pdfPaneWidth";
+const DEFAULT_SPLIT = 70;
 const MIN_SPLIT = 25;
 const MAX_SPLIT = 75;
+const PAGE_DATA = window.__N301XT_PAGE_DATA__ || {};
+window.__N301XT_PAGE_DATA__ = PAGE_DATA;
+const pendingPageScripts = new Map();
 
 const els = {
   pageCount: document.getElementById("page-count"),
@@ -37,16 +41,26 @@ function setPaneSplit(percent, persist = true) {
   document.documentElement.style.setProperty("--pdf-pane-width", `${next}%`);
   els.paneResizer.setAttribute("aria-valuenow", String(Math.round(next)));
   if (persist) {
-    localStorage.setItem(SPLIT_STORAGE_KEY, String(next));
+    try {
+      localStorage.setItem(SPLIT_STORAGE_KEY, String(next));
+    } catch {
+      // Some browsers restrict localStorage from file:// URLs.
+    }
   }
 }
 
 function loadPaneSplit() {
-  const stored = Number.parseFloat(localStorage.getItem(SPLIT_STORAGE_KEY) || "");
+  let storedValue = "";
+  try {
+    storedValue = localStorage.getItem(SPLIT_STORAGE_KEY) || "";
+  } catch {
+    storedValue = "";
+  }
+  const stored = Number.parseFloat(storedValue);
   if (Number.isFinite(stored)) {
     setPaneSplit(stored, false);
   } else {
-    setPaneSplit(50, false);
+    setPaneSplit(DEFAULT_SPLIT, false);
   }
 }
 
@@ -163,6 +177,88 @@ function pageUrl(source, page) {
 
 function textUrl(source, page) {
   return source.textTemplate.replace("{pagePadded}", padPage(page));
+}
+
+function textScriptUrl(source, page) {
+  const template = source.textScriptTemplate || source.textTemplate.replace(/\.json$/, ".js");
+  return template.replace("{pagePadded}", padPage(page));
+}
+
+function canFetchLocalData() {
+  return window.location.protocol !== "file:";
+}
+
+function loadScript(src) {
+  return new Promise((resolve, reject) => {
+    const existing = Array.from(document.scripts).find((script) => script.dataset.src === src);
+    if (existing?.dataset.loaded === "true") {
+      resolve();
+      return;
+    }
+
+    const script = existing || document.createElement("script");
+    script.dataset.src = src;
+    script.onload = () => {
+      script.dataset.loaded = "true";
+      resolve();
+    };
+    script.onerror = () => reject(new Error(`Could not load ${src}`));
+
+    if (!existing) {
+      script.src = src;
+      document.head.appendChild(script);
+    }
+  });
+}
+
+async function loadManifest() {
+  if (canFetchLocalData()) {
+    const response = await fetch("data/manifest.json");
+    if (!response.ok) throw new Error(`Could not load manifest: HTTP ${response.status}`);
+    return response.json();
+  }
+
+  await loadScript("data/manifest.js");
+  if (!window.__N301XT_MANIFEST__) {
+    throw new Error("Could not load manifest script");
+  }
+  return window.__N301XT_MANIFEST__;
+}
+
+function pageDataKey(source, page) {
+  return `${source.id}/${padPage(page)}`;
+}
+
+async function loadTextPayload(source, page) {
+  if (canFetchLocalData()) {
+    const response = await fetch(textUrl(source, page));
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return response.json();
+  }
+
+  const key = pageDataKey(source, page);
+  if (PAGE_DATA[key]) return PAGE_DATA[key];
+
+  const scriptUrl = textScriptUrl(source, page);
+  if (!pendingPageScripts.has(key)) {
+    pendingPageScripts.set(
+      key,
+      new Promise((resolve, reject) => {
+        const previousReady = window.__N301XT_PAGE_READY__;
+        window.__N301XT_PAGE_READY__ = (readyKey) => {
+          if (typeof previousReady === "function") previousReady(readyKey);
+          if (readyKey === key) resolve();
+        };
+        loadScript(scriptUrl).then(() => {
+          if (PAGE_DATA[key]) resolve();
+        }).catch(reject);
+      })
+    );
+  }
+
+  await pendingPageScripts.get(key);
+  if (!PAGE_DATA[key]) throw new Error(`No text payload registered for ${key}`);
+  return PAGE_DATA[key];
 }
 
 function renderNav() {
@@ -339,9 +435,7 @@ async function loadText() {
   els.textContent.textContent = "";
 
   try {
-    const response = await fetch(textUrl(source, requestedPage));
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    const payload = await response.json();
+    const payload = await loadTextPayload(source, requestedPage);
     if (requestedSourceId !== state.sourceId || requestedPage !== state.page) {
       return;
     }
@@ -365,9 +459,7 @@ function render() {
 async function boot() {
   loadPaneSplit();
   initPaneResizer();
-  const response = await fetch("data/manifest.json");
-  if (!response.ok) throw new Error(`Could not load manifest: HTTP ${response.status}`);
-  state.manifest = await response.json();
+  state.manifest = await loadManifest();
   normalizeStateFromHash();
   render();
 }

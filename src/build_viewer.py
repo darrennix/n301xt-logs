@@ -9,7 +9,7 @@ It emits one searchable PDF and one compact JSON record per page so the
 browser only fetches the currently selected page.
 
 Usage:
-    .venv/bin/python build_viewer.py
+    .venv/bin/python src/build_viewer.py
 """
 
 from __future__ import annotations
@@ -25,11 +25,12 @@ import fitz
 
 
 ROOT = Path(__file__).resolve().parent
+PROJECT_ROOT = ROOT.parent
 OCR_DIR = ROOT / "ocr"
 SEARCHABLE_DIR = OCR_DIR / "searchable"
 TEXT_DIR = OCR_DIR / "text"
 DB_PATH = OCR_DIR / "events.db"
-VIEWER_DIR = ROOT / "viewer"
+VIEWER_DIR = PROJECT_ROOT / "dist"
 DATA_DIR = VIEWER_DIR / "data"
 PAGE_DIR = VIEWER_DIR / "pages"
 VIEWER_TEXT_DIR = VIEWER_DIR / "text"
@@ -154,6 +155,27 @@ def write_json(path: Path, payload: object) -> None:
     )
 
 
+def write_js_assignment(path: Path, name: str, payload: object) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    body = json.dumps(payload, ensure_ascii=False, separators=(",", ":"))
+    body = body.replace("</", "<\\/")
+    path.write_text(f"window.{name} = {body};\n", encoding="utf-8")
+
+
+def write_page_js(path: Path, key: str, payload: object) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    key_json = json.dumps(key, ensure_ascii=True)
+    body = json.dumps(payload, ensure_ascii=False, separators=(",", ":"))
+    body = body.replace("</", "<\\/")
+    path.write_text(
+        "window.__N301XT_PAGE_DATA__ = window.__N301XT_PAGE_DATA__ || {};\n"
+        f"window.__N301XT_PAGE_DATA__[{key_json}] = {body};\n"
+        "if (window.__N301XT_PAGE_READY__) "
+        f"window.__N301XT_PAGE_READY__({key_json});\n",
+        encoding="utf-8",
+    )
+
+
 def split_pdf(source_pdf: Path, source_id: str, force: bool) -> int:
     out_dir = PAGE_DIR / source_id
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -192,7 +214,8 @@ def build_text_pages(
     written = 0
     for page_num in range(1, page_count + 1):
         out_path = out_dir / f"{page_num:04d}.json"
-        if out_path.exists() and not force:
+        js_path = out_dir / f"{page_num:04d}.js"
+        if out_path.exists() and js_path.exists() and not force:
             continue
 
         page_payload = jsonl_pages.get(page_num, {})
@@ -210,6 +233,7 @@ def build_text_pages(
             "events": events.get((source_pdf, page_num), []),
         }
         write_json(out_path, payload)
+        write_page_js(js_path, f"{source_id}/{page_num:04d}", payload)
         written += 1
 
     if len(jsonl_pages) != page_count:
@@ -236,6 +260,7 @@ def build(force: bool) -> dict:
         "entities": [],
         "pagePdfTemplate": "pages/{sourceId}/{pagePadded}.pdf",
         "textTemplate": "text/{sourceId}/{pagePadded}.json",
+        "textScriptTemplate": "text/{sourceId}/{pagePadded}.js",
     }
 
     total_pages = 0
@@ -269,6 +294,7 @@ def build(force: bool) -> dict:
                     "entityPageStart": entity_page_count + 1,
                     "pagePdfTemplate": f"pages/{source_id}/{{pagePadded}}.pdf",
                     "textTemplate": f"text/{source_id}/{{pagePadded}}.json",
+                    "textScriptTemplate": f"text/{source_id}/{{pagePadded}}.js",
                 }
             )
             entity_page_count += page_count
@@ -286,7 +312,9 @@ def build(force: bool) -> dict:
 
     manifest["pageCount"] = total_pages
     write_json(DATA_DIR / "manifest.json", manifest)
+    write_js_assignment(DATA_DIR / "manifest.js", "__N301XT_MANIFEST__", manifest)
     print(f"viewer manifest: {DATA_DIR / 'manifest.json'}")
+    print(f"viewer manifest script: {DATA_DIR / 'manifest.js'}")
     print(f"total pages: {total_pages}")
     return manifest
 
