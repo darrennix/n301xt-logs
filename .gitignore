@@ -189,4 +189,5 @@ cython_debug/
 /ocr/text
 /original-pdf
 /rotated-pdf
+/secrets/
 .DS_Store
