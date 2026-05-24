@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>N301XT Logs</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <main class="workspace">
+        <header class="toolbar">
+          <div class="brand-inline">
+            <h1>N301XT Logs</h1>
+            <div id="page-count" class="muted">Loading</div>
+          </div>
+          <nav id="entity-nav" class="entity-nav" aria-label="Logbook entity tabs"></nav>
+          <label class="source-picker">
+            <span>Source</span>
+            <select id="source-select"></select>
+          </label>
+          <div class="page-controls" aria-label="Page controls">
+            <button id="prev-page" type="button" title="Previous page">Prev</button>
+            <label class="page-jump">
+              <span>Page</span>
+              <input id="page-input" type="number" min="1" value="1">
+              <span id="page-total">/ 1</span>
+            </label>
+            <button id="next-page" type="button" title="Next page">Next</button>
+          </div>
+          <div id="source-title" class="source-title"></div>
+        </header>
+
+        <section class="panes">
+          <article class="pane pdf-pane" aria-label="PDF page">
+            <iframe id="pdf-frame" title="Selected logbook PDF page"></iframe>
+          </article>
+
+          <div
+            id="pane-resizer"
+            class="pane-resizer"
+            role="separator"
+            aria-label="Resize PDF and text panes"
+            aria-orientation="vertical"
+            aria-valuemin="25"
+            aria-valuemax="75"
+            aria-valuenow="50"
+            tabindex="0"
+          ></div>
+
+          <article class="pane text-pane" aria-label="Extracted text">
+            <div class="tabs" role="tablist" aria-label="Text views">
+              <button type="button" class="tab active" data-tab="en">English</button>
+              <button type="button" class="tab" data-tab="original">Original</button>
+              <button type="button" class="tab" data-tab="events">Events</button>
+            </div>
+            <div id="text-meta" class="text-meta"></div>
+            <div id="text-content" class="text-content"></div>
+          </article>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
