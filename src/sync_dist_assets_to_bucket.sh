@@ -4,6 +4,29 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 DIST_DIR="${ROOT_DIR}/dist"
 
+load_railway_bucket_credentials() {
+  if ! command -v railway >/dev/null 2>&1; then
+    return
+  fi
+
+  local line key value
+  while IFS= read -r line; do
+    [[ "${line}" == *=* ]] || continue
+    key="${line%%=*}"
+    value="${line#*=}"
+    case "${key}" in
+      AWS_ENDPOINT_URL|AWS_ACCESS_KEY_ID|AWS_SECRET_ACCESS_KEY|AWS_S3_BUCKET_NAME|AWS_DEFAULT_REGION|AWS_S3_URL_STYLE)
+        export "${key}=${value}"
+        ;;
+    esac
+  done < <(railway bucket credentials --bucket "${RAILWAY_BUCKET_NAME:-assets}" 2>/dev/null || true)
+}
+
+if [[ -z "${BUCKET_NAME:-${BUCKET:-${AWS_S3_BUCKET_NAME:-${AWS_BUCKET_NAME:-}}}}" ]] ||
+   [[ -z "${BUCKET_ENDPOINT:-${ENDPOINT:-${AWS_ENDPOINT_URL_S3:-${AWS_ENDPOINT_URL:-}}}}" ]]; then
+  load_railway_bucket_credentials
+fi
+
 bucket_name="${BUCKET_NAME:-${BUCKET:-${AWS_S3_BUCKET_NAME:-${AWS_BUCKET_NAME:-}}}}"
 endpoint="${BUCKET_ENDPOINT:-${ENDPOINT:-${AWS_ENDPOINT_URL_S3:-${AWS_ENDPOINT_URL:-}}}}"
 region="${BUCKET_REGION:-${REGION:-${AWS_DEFAULT_REGION:-auto}}}"
